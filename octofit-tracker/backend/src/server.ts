@@ -4,6 +4,15 @@ import { Activity, LeaderboardEntry, Team, User, Workout } from './models';
 
 const app = express();
 app.use(express.json());
+app.use((_req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (_req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
 
 const port = Number(process.env.PORT || 8000);
 const codespaceName = process.env.CODESPACE_NAME?.trim();
