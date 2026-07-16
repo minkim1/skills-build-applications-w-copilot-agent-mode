@@ -12,12 +12,12 @@ function Workouts() {
     async function loadWorkouts() {
       try {
         const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
-        const apiBase =
+        const apiUrl =
           import.meta.env.VITE_API_BASE_URL?.trim() ||
           (codespaceName && codespaceName !== 'your-codespace-name'
-            ? `https://${codespaceName}-8000.app.github.dev`
-            : 'http://127.0.0.1:8000')
-        const response = await fetch(`${apiBase}/api/workouts/`)
+            ? `https://${codespaceName}-8000.app.github.dev/api/workouts`
+            : 'http://127.0.0.1:8000/api/workouts/')
+        const response = await fetch(apiUrl)
         if (!response.ok) {
           throw new Error('Unable to fetch workouts')
         }
